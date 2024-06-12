@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Asp.NetCore_Inventory_Order_Management_System.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<WarehouseDBContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("WarehouseDBContext") ?? throw new InvalidOperationException("Connection string 'WarehouseDBContext' not found.")));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
